@@ -24,6 +24,7 @@ class TensorNameMap:
             "backbone.embedding",                        # mamba
             "backbone.embeddings",                       # mamba-hf
             "transformer.in_out_embed",                  # Grok
+            "embed_tokens",
         ),
 
         # Token type embeddings
@@ -97,6 +98,7 @@ class TensorNameMap:
             "backbone.layers.{bid}.norm",                           # mamba
             "transformer.decoder_layer.{bid}.rms_norm",             # Grok
             "transformer.blocks.{bid}.norm_attn_norm.norm_1",       # dbrx
+            "layers.{bid}.input_layernorm",
         ),
 
         # Attention norm 2
@@ -129,7 +131,8 @@ class TensorNameMap:
             "transformer.h.{bid}.attn.q_proj",                           # gpt-j
             "model.layers.layers.{bid}.self_attn.q_proj",                # plamo
             "model.layers.{bid}.attention.wq",                           # internlm2
-            "transformer.decoder_layer.{bid}.multi_head_attention.query" # Grok
+            "transformer.decoder_layer.{bid}.multi_head_attention.query",# Grok
+            "layers.{bid}.self_attn.q_proj",
         ),
 
         # Attention key
@@ -141,7 +144,8 @@ class TensorNameMap:
             "transformer.h.{bid}.attn.k",                              # refact
             "model.layers.layers.{bid}.self_attn.k_proj",              # plamo
             "model.layers.{bid}.attention.wk",                         # internlm2
-            "transformer.decoder_layer.{bid}.multi_head_attention.key" # Grok
+            "transformer.decoder_layer.{bid}.multi_head_attention.key",# Grok
+            "layers.{bid}.self_attn.k_proj",
         ),
 
         # Attention value
@@ -153,7 +157,8 @@ class TensorNameMap:
             "transformer.h.{bid}.attn.v",                                # refact
             "model.layers.layers.{bid}.self_attn.v_proj",                # plamo
             "model.layers.{bid}.attention.wv",                           # internlm2
-            "transformer.decoder_layer.{bid}.multi_head_attention.value" # Grok
+            "transformer.decoder_layer.{bid}.multi_head_attention.value",# Grok
+            "layers.{bid}.self_attn.v_proj",
         ),
 
         # Attention output
@@ -176,6 +181,7 @@ class TensorNameMap:
             "encoder.layers.{bid}.attn.out_proj",                           # nomic-bert
             "transformer.decoder_layer.{bid}.multi_head_attention.linear",  # Grok
             "transformer.blocks.{bid}.norm_attn_norm.attn.out_proj",        # dbrx
+            "layers.{bid}.self_attn.o_proj",
         ),
 
         # Attention output norm
@@ -207,6 +213,7 @@ class TensorNameMap:
             "h.{bid}.ln_2",                                                  # gpt2
             "model.layers.{bid}.ffn_norm",                                   # internlm2
             "transformer.decoder_layer.{bid}.rms_norm_2",                    # Grok
+            "layers.{bid}.post_attention_layernorm",
         ),
 
         MODEL_TENSOR.FFN_GATE_INP: (
@@ -246,6 +253,7 @@ class TensorNameMap:
             "model.layers.{bid}.mlp.c_fc",                            # starcoder2
             "encoder.layer.{bid}.mlp.gated_layers_v",                 # jina-bert-v2
             "model.layers.{bid}.residual_mlp.w3",                     # arctic
+            "layers.{bid}.mlp.up_proj",
         ),
 
         MODEL_TENSOR.FFN_UP_EXP: (
@@ -276,6 +284,7 @@ class TensorNameMap:
             "encoder.layer.{bid}.mlp.gated_layers_w",     # jina-bert-v2
             "transformer.h.{bid}.mlp.linear_1",           # refact
             "model.layers.{bid}.residual_mlp.w1",         # arctic
+            "layers.{bid}.mlp.gate_proj",
         ),
 
         MODEL_TENSOR.FFN_GATE_EXP: (
@@ -313,6 +322,7 @@ class TensorNameMap:
             "encoder.layer.{bid}.mlp.wo",                             # jina-bert-v2
             "model.layers.{bid}.residual_mlp.w2",                     # arctic
             "encoder.layer.{bid}.mlp.down_layer",                     # jina-bert-v2
+            "layers.{bid}.mlp.down_proj",
         ),
 
         MODEL_TENSOR.FFN_DOWN_EXP: (
